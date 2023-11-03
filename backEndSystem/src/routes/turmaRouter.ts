@@ -18,7 +18,10 @@ turmaRouter.post("/", async (req, res) => {
     try {
         const turma = req.body;
         const newTurma = await turmaClient.create({
-            data: turma,
+            data: {
+                codturma: turma.codturma,
+                turno: turma.turno
+            },
         });
         res.json(newTurma);
     } catch (err) {
