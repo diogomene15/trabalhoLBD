@@ -1,0 +1,157 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model aluno {
+  id                    Int             @id @default(autoincrement())
+  idpessoa              Int             @unique
+  matricula             String          @unique @db.VarChar(50)
+  idresponsavel         Int             @unique
+  parentescoresponsavel String          @db.VarChar(50)
+  idfichaalimentar      Int             @unique
+  fichaalimentar        fichaalimentar  @relation(fields: [idfichaalimentar], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  pessoa                pessoa          @relation(fields: [idpessoa], references: [id], onDelete: Cascade)
+  responsavel           responsavel     @relation(fields: [idresponsavel], references: [id], onDelete: NoAction)
+  alunorefeicao         alunorefeicao[]
+  enturmacao            enturmacao[]
+}
+
+model alunorefeicao {
+  idaluno    Int
+  idrefeicao Int
+  datahora   DateTime @db.Timestamp(6)
+  aluno      aluno    @relation(fields: [idaluno], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  refeicao   refeicao @relation(fields: [idrefeicao], references: [id], onDelete: NoAction, onUpdate: NoAction)
+
+  @@id([idaluno, idrefeicao, datahora])
+}
+
+model endereco {
+  id                 Int                  @id @default(autoincrement())
+  logradouro         String               @db.VarChar(255)
+  numero             String               @db.VarChar(10)
+  bairro             String               @db.VarChar(255)
+  cidade             String               @db.VarChar(255)
+  estado             String               @db.VarChar(2)
+  reponsavelendereco reponsavelendereco[]
+  responsavel        responsavel?
+}
+
+model enturmacao {
+  id      Int     @id @default(autoincrement())
+  idaluno Int
+  idturma Int
+  ano     Int
+  atual   Boolean
+  aluno   aluno   @relation(fields: [idaluno], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  turma   turma   @relation(fields: [idturma], references: [id], onDelete: NoAction, onUpdate: NoAction)
+}
+
+model fichaalimentar {
+  id                        Int                         @id @default(autoincrement())
+  observacao                String?                     @db.VarChar(255)
+  aluno                     aluno?
+  fichaalimentarlog         fichaalimentarlog[]
+  ficharestricaoingrediente ficharestricaoingrediente[]
+}
+
+model fichaalimentarlog {
+  id               Int            @id @default(autoincrement())
+  idfichaalimentar Int
+  datahora         DateTime       @db.Timestamp(6)
+  tipolog          String         @db.VarChar(2)
+  fichaalimentar   fichaalimentar @relation(fields: [idfichaalimentar], references: [id], onDelete: NoAction, onUpdate: NoAction)
+}
+
+model ficharestricaoingrediente {
+  id               Int            @id @default(autoincrement())
+  idfichaalimentar Int
+  idingrediente    Int
+  fichaalimentar   fichaalimentar @relation(fields: [idfichaalimentar], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  ingrediente      ingrediente    @relation(fields: [idingrediente], references: [id], onDelete: NoAction, onUpdate: NoAction)
+}
+
+model ingrediente {
+  id                        Int                         @id @default(autoincrement())
+  nome                      String                      @db.VarChar(255)
+  descricao                 String?                     @db.VarChar(255)
+  ficharestricaoingrediente ficharestricaoingrediente[]
+  refeicaoingrediente       refeicaoingrediente[]
+}
+
+model pessoa {
+  id           Int          @id @default(autoincrement())
+  cpf          String       @unique @db.Char(11)
+  primeironome String       @db.VarChar(50)
+  sobrenome    String       @db.VarChar(255)
+  aluno        aluno?
+  responsavel  responsavel?
+}
+
+model refeicao {
+  id                  Int                   @id @default(autoincrement())
+  nome                String                @db.VarChar(255)
+  descricao           String?               @db.VarChar(255)
+  alunorefeicao       alunorefeicao[]
+  refeicaoingrediente refeicaoingrediente[]
+}
+
+model refeicaoingrediente {
+  id            Int         @id @default(autoincrement())
+  idrefeicao    Int
+  idingrediente Int
+  ingrediente   ingrediente @relation(fields: [idingrediente], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  refeicao      refeicao    @relation(fields: [idrefeicao], references: [id], onDelete: NoAction, onUpdate: NoAction)
+}
+
+model reponsavelendereco {
+  idresponsavel Int
+  idendereco    Int
+  endereco      endereco    @relation(fields: [idendereco], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  responsavel   responsavel @relation(fields: [idresponsavel], references: [id], onDelete: NoAction, onUpdate: NoAction)
+
+  @@id([idresponsavel, idendereco])
+}
+
+model reponsaveltelefone {
+  idresponsavel Int
+  idtelefone    Int
+  responsavel   responsavel @relation(fields: [idresponsavel], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  telefone      telefone    @relation(fields: [idtelefone], references: [id], onDelete: NoAction, onUpdate: NoAction)
+
+  @@id([idresponsavel, idtelefone])
+}
+
+model responsavel {
+  id                  Int                  @id @default(autoincrement())
+  idpessoa            Int                  @unique
+  idtelefoneprincipal Int                  @unique
+  idenderecoprincipal Int                  @unique
+  aluno               aluno?
+  reponsavelendereco  reponsavelendereco[]
+  reponsaveltelefone  reponsaveltelefone[]
+  endereco            endereco             @relation(fields: [idenderecoprincipal], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  pessoa              pessoa               @relation(fields: [idpessoa], references: [id], onDelete: Cascade)
+  telefone            telefone             @relation(fields: [idtelefoneprincipal], references: [id], onDelete: NoAction, onUpdate: NoAction)
+}
+
+model telefone {
+  id                 Int                  @id @default(autoincrement())
+  codigopais         String               @default("55") @db.VarChar(3)
+  codigoarea         String               @db.Char(2)
+  numero             String               @db.VarChar(9)
+  reponsaveltelefone reponsaveltelefone[]
+  responsavel        responsavel?
+}
+
+model turma {
+  id         Int          @id @default(autoincrement())
+  codturma   String       @db.VarChar(50)
+  turno      String       @db.Char(5)
+  enturmacao enturmacao[]
+}
