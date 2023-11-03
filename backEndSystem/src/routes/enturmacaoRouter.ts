@@ -7,7 +7,7 @@ const enturmacaoClient = prismaClient.enturmacao;
 
 enturmacaoRouter.get("/", async (_, res) => {
     try {
-        const allEnturmacoes = enturmacaoClient.findMany();
+        const allEnturmacoes = await enturmacaoClient.findMany();
         res.json(allEnturmacoes);
     } catch (err) {
         res.status(500).send(err);
@@ -33,7 +33,7 @@ enturmacaoRouter.post("/", async (req, res) => {
 enturmacaoRouter.get("/:id", async (req, res) => {
     try {
         const id = req.params.id;
-        const enturmacao = enturmacaoClient.findUnique({
+        const enturmacao = await enturmacaoClient.findUnique({
             where: { id: Number(id) },
         });
         res.json(enturmacao);
@@ -45,7 +45,7 @@ enturmacaoRouter.get("/:id", async (req, res) => {
 enturmacaoRouter.get("/aluno/:id", async (req, res) => {
     try {
         const id = req.params.id;
-        const enturmacoes = enturmacaoClient.findMany({
+        const enturmacoes = await enturmacaoClient.findMany({
             where: { idaluno: Number(id) },
         });
         res.json(enturmacoes);

@@ -7,7 +7,7 @@ const turmaClient = prismaClient.turma;
 
 turmaRouter.get("/", async (_, res) => {
     try {
-        const allTurmas = turmaClient.findMany();
+        const allTurmas = await turmaClient.findMany();
         res.json(allTurmas);
     } catch (err) {
         res.status(500).send(err);
@@ -17,7 +17,7 @@ turmaRouter.get("/", async (_, res) => {
 turmaRouter.post("/", async (req, res) => {
     try {
         const turma = req.body;
-        const newTurma = turmaClient.create({
+        const newTurma = await turmaClient.create({
             data: turma,
         });
         res.json(newTurma);
@@ -29,7 +29,7 @@ turmaRouter.post("/", async (req, res) => {
 turmaRouter.get("/:id", async (req, res) => {
     try {
         const id = req.params.id;
-        const turma = turmaClient.findUnique({
+        const turma = await turmaClient.findUnique({
             where: { id: Number(id) },
         });
         res.json(turma);
@@ -42,7 +42,7 @@ turmaRouter.put("/:id", async (req, res) => {
     try {
         const id = req.params.id;
         const turma = req.body;
-        const updatedTurma = turmaClient.update({
+        const updatedTurma = await turmaClient.update({
             where: { id: Number(id) },
             data: turma,
         });
@@ -55,7 +55,7 @@ turmaRouter.put("/:id", async (req, res) => {
 turmaRouter.delete("/:id", async (req, res) => {
     try {
         const id = req.params.id;
-        const deletedTurma = turmaClient.delete({
+        const deletedTurma = await turmaClient.delete({
             where: { id: Number(id) },
         });
         res.json(deletedTurma);

@@ -8,7 +8,7 @@ const responsavelClient = prismaClient.responsavel;
 
 responsavelRouter.get("/", async (_, res) => {
     try {
-        const allResponsaveis = responsavelClient.findMany();
+        const allResponsaveis = await responsavelClient.findMany();
         res.json(allResponsaveis);
     } catch (err) {
         res.status(500).send(err);
@@ -49,7 +49,7 @@ responsavelRouter.post("/", async (req, res) => {
 responsavelRouter.get("/:id", async (req, res) => {
     try {
         const id = req.params.id;
-        const responsavel = responsavelClient.findUnique({
+        const responsavel = await responsavelClient.findUnique({
             where: { id: Number(id) },
         });
         res.json(responsavel);
@@ -62,7 +62,7 @@ responsavelRouter.put("/:id", async (req, res) => {
     try {
         const id = req.params.id;
         const responsavel = req.body;
-        const updatedResponsavel = responsavelClient.update({
+        const updatedResponsavel = await responsavelClient.update({
             where: { id: Number(id) },
             data: responsavel,
         });
@@ -75,7 +75,7 @@ responsavelRouter.put("/:id", async (req, res) => {
 responsavelRouter.delete("/:id", async (req, res) => {
     try {
         const id = req.params.id;
-        const deletedResponsavel = responsavelClient.delete({
+        const deletedResponsavel = await responsavelClient.delete({
             where: { id: Number(id) },
         });
         res.json(deletedResponsavel);

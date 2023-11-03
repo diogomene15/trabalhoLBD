@@ -45,7 +45,7 @@ alunoRouter.post("/", async (req, res) => {
 alunoRouter.get("/:id", async (req, res) => {
     try {
         const id = req.params.id;
-        const aluno = alunoClient.findUnique({
+        const aluno = await alunoClient.findUnique({
             where: { id: Number(id) },
         });
         res.json(aluno);

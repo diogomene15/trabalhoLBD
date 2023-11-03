@@ -7,7 +7,7 @@ const pessoaClient = prismaClient.pessoa;
 
 pessoaRouter.get("/", async (_, res) => {
     try {
-        const allPessoas = pessoaClient.findMany();
+        const allPessoas = await pessoaClient.findMany();
         res.json(allPessoas);
     } catch (err) {
         res.status(500).send(err);
@@ -17,7 +17,7 @@ pessoaRouter.get("/", async (_, res) => {
 pessoaRouter.post("/", async (req, res) => {
     try {
         const pessoa = req.body;
-        const newPessoa = pessoaClient.create({
+        const newPessoa = await pessoaClient.create({
             data: pessoa,
         });
         res.json(newPessoa);
@@ -29,7 +29,7 @@ pessoaRouter.post("/", async (req, res) => {
 pessoaRouter.get("/:id", async (req, res) => {
     try {
         const id = req.params.id;
-        const pessoa = pessoaClient.findUnique({
+        const pessoa = await pessoaClient.findUnique({
             where: { id: Number(id) },
         });
         res.json(pessoa);
@@ -42,7 +42,7 @@ pessoaRouter.put("/:id", async (req, res) => {
     try {
         const id = req.params.id;
         const pessoa = req.body;
-        const updatedPessoa = pessoaClient.update({
+        const updatedPessoa = await pessoaClient.update({
             where: { id: Number(id) },
             data: pessoa,
         });
@@ -55,7 +55,7 @@ pessoaRouter.put("/:id", async (req, res) => {
 pessoaRouter.delete("/:id", async (req, res) => {
     try {
         const id = req.params.id;
-        const deletedPessoa = pessoaClient.delete({
+        const deletedPessoa = await pessoaClient.delete({
             where: { id: Number(id) },
         });
         res.json(deletedPessoa);

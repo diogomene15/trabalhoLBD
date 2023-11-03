@@ -7,7 +7,7 @@ const fichaAlimentarClient = prismaClient.fichaalimentar;
 
 fichaalimentarRouter.get("/", async (_, res) => {
     try {
-        const allFichasAlimentares = fichaAlimentarClient.findMany();
+        const allFichasAlimentares = await fichaAlimentarClient.findMany();
         res.json(allFichasAlimentares);
     } catch (err) {
         res.status(500).send(err);
@@ -39,7 +39,7 @@ fichaalimentarRouter.post("/", async (req, res) => {
 fichaalimentarRouter.get("/:id", async (req, res) => {
     try {
         const id = req.params.id;
-        const fichaAlimentar = fichaAlimentarClient.findUnique({
+        const fichaAlimentar = await fichaAlimentarClient.findUnique({
             where: { id: Number(id) },
         });
         res.json(fichaAlimentar);
