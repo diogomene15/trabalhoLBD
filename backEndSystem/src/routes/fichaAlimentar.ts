@@ -5,10 +5,19 @@ const fichaalimentarRouter = Router();
 const prismaClient = new PrismaClient();
 const fichaAlimentarClient = prismaClient.fichaalimentar;
 
-fichaalimentarRouter.get("/", async (req, res) => {
+fichaalimentarRouter.get("/", async (_, res) => {
     try {
         const allFichasAlimentares = fichaAlimentarClient.findMany();
         res.json(allFichasAlimentares);
+    } catch (err) {
+        res.status(500).send(err);
+    }
+});
+
+fichaalimentarRouter.get("/log", async (_, res) => {
+    try{
+        const allLogsFichaAlimentar = await prismaClient.fichaalimentarlog.findMany();
+        res.json(allLogsFichaAlimentar);
     } catch (err) {
         res.status(500).send(err);
     }
@@ -32,6 +41,18 @@ fichaalimentarRouter.get("/:id", async (req, res) => {
         const id = req.params.id;
         const fichaAlimentar = fichaAlimentarClient.findUnique({
             where: { id: Number(id) },
+        });
+        res.json(fichaAlimentar);
+    } catch (err) {
+        res.status(500).send(err);
+    }
+});
+
+fichaalimentarRouter.get("/:id/log", async (req, res) => {
+    try {
+        const id = req.params.id;
+        const fichaAlimentar = await prismaClient.fichaalimentarlog.findMany({
+            where: { idfichaalimentar: Number(id) },
         });
         res.json(fichaAlimentar);
     } catch (err) {

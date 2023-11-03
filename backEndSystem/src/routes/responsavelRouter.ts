@@ -6,7 +6,7 @@ const responsavelRouter = Router();
 const prismaClient = new PrismaClient();
 const responsavelClient = prismaClient.responsavel;
 
-responsavelRouter.get("/", async (req, res) => {
+responsavelRouter.get("/", async (_, res) => {
     try {
         const allResponsaveis = responsavelClient.findMany();
         res.json(allResponsaveis);

@@ -5,7 +5,7 @@ const pessoaRouter = Router();
 const prismaClient = new PrismaClient();
 const pessoaClient = prismaClient.pessoa;
 
-pessoaRouter.get("/", async (req, res) => {
+pessoaRouter.get("/", async (_, res) => {
     try {
         const allPessoas = pessoaClient.findMany();
         res.json(allPessoas);

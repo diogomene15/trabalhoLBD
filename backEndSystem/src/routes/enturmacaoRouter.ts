@@ -5,7 +5,7 @@ const enturmacaoRouter = Router();
 const prismaClient = new PrismaClient();
 const enturmacaoClient = prismaClient.enturmacao;
 
-enturmacaoRouter.get("/", async (req, res) => {
+enturmacaoRouter.get("/", async (_, res) => {
     try {
         const allEnturmacoes = enturmacaoClient.findMany();
         res.json(allEnturmacoes);

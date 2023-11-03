@@ -5,7 +5,7 @@ const turmaRouter = Router();
 const prismaClient = new PrismaClient();
 const turmaClient = prismaClient.turma;
 
-turmaRouter.get("/", async (req, res) => {
+turmaRouter.get("/", async (_, res) => {
     try {
         const allTurmas = turmaClient.findMany();
         res.json(allTurmas);

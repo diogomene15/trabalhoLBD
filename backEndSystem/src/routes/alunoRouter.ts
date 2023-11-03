@@ -5,7 +5,7 @@ const alunoRouter = Router();
 const prismaClient = new PrismaClient();
 const alunoClient = prismaClient.aluno;
 
-alunoRouter.get("/", async (req, res) => {
+alunoRouter.get("/", async (_, res) => {
     try {
         const allAlunos = alunoClient.findMany();
         res.json(allAlunos);

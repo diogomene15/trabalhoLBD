@@ -5,7 +5,7 @@ const ingredienteRouter = Router();
 const prismaClient = new PrismaClient();
 const ingredienteClient = prismaClient.ingrediente;
 
-ingredienteRouter.get("/", async (req, res) => {
+ingredienteRouter.get("/", async (_, res) => {
     try {
         const allIngredientes = ingredienteClient.findMany();
         res.json(allIngredientes);
