@@ -2,10 +2,14 @@
 Welcome. This is a simple college project that uses [Prisma](https://www.prisma.io/) and [Postgresql](https://www.postgresql.org/) to build a system called **NutriSafe**.
 
 ## How to depoloy it?
+
+### Docker
 The easiest way for running it up is using [Docker](https://www.docker.com/):
 ```bash
 docker-compose up . -d
 ```
+
+### Mannualy
 But you can also do it by the good old way.
 With an Postgresql database running, update the connection string on `./backEndSystem/.env` file.
 
