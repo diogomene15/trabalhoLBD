@@ -7,7 +7,7 @@ const alunoClient = prismaClient.aluno;
 
 alunoRouter.get("/", async (_, res) => {
     try {
-        const allAlunos = alunoClient.findMany({
+        const allAlunos = await alunoClient.findMany({
             include: {
                 pessoa: true,
                 fichaalimentar: true,
@@ -39,14 +39,14 @@ alunoRouter.get("/:id", async (req, res) => {
 alunoRouter.post("/", async (req, res) => {
     try {
         const [pessoa, fichaalimentar] = await Promise.all([
-            req.body.idpessoa ||
+            (req.body.idpessoa ||
                 prismaClient.pessoa.create({
                     data: req.body.pessoa,
-                }),
-            req.body.idfichaalimentar ||
+                })),
+            (req.body.idfichaalimentar ||
                 prismaClient.fichaalimentar.create({
                     data: req.body.fichaalimentar,
-                }),
+                })),
         ]);
 
         const newAluno = await alunoClient.create({
