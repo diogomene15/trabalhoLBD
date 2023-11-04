@@ -27,7 +27,8 @@ fichaalimentarRouter.post("/", async (req, res) => {
     try {
         const newFichaAlimentar = await fichaAlimentarClient.create({
             data: {
-                observacao: req.body.observacao,
+                id:1,
+                observacao: req.body.observacao                
             },
         });
         res.json(newFichaAlimentar);

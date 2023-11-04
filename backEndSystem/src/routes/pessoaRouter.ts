@@ -7,7 +7,12 @@ const pessoaClient = prismaClient.pessoa;
 
 pessoaRouter.get("/", async (_, res) => {
     try {
-        const allPessoas = await pessoaClient.findMany();
+        const allPessoas = await pessoaClient.findMany({
+            include: {
+                aluno: true,
+                responsavel: true,
+            }
+        });
         res.json(allPessoas);
     } catch (err) {
         res.status(500).send(err);
@@ -18,7 +23,11 @@ pessoaRouter.post("/", async (req, res) => {
     try {
         const pessoa = req.body;
         const newPessoa = await pessoaClient.create({
-            data: pessoa,
+            data: {
+                cpf: pessoa.cpf,
+                primeironome: pessoa.primeironome,
+                sobrenome: pessoa.sobrenome
+            }
         });
         res.json(newPessoa);
     } catch (err) {
@@ -31,6 +40,10 @@ pessoaRouter.get("/:id", async (req, res) => {
         const id = req.params.id;
         const pessoa = await pessoaClient.findUnique({
             where: { id: Number(id) },
+            include: {
+                aluno: true,
+                responsavel: true,
+            }
         });
         res.json(pessoa);
     } catch (err) {

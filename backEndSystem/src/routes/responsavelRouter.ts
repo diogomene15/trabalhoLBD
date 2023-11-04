@@ -8,7 +8,11 @@ const responsavelClient = prismaClient.responsavel;
 
 responsavelRouter.get("/", async (_, res) => {
     try {
-        const allResponsaveis = await responsavelClient.findMany();
+        const allResponsaveis = await responsavelClient.findMany({include: {
+            pessoa: true,
+            endereco: true,
+            telefone: true,
+        }});
         res.json(allResponsaveis);
     } catch (err) {
         res.status(500).send(err);
@@ -51,6 +55,11 @@ responsavelRouter.get("/:id", async (req, res) => {
         const id = req.params.id;
         const responsavel = await responsavelClient.findUnique({
             where: { id: Number(id) },
+            include: {
+                pessoa: true,
+                endereco: true,
+                telefone: true,
+            }
         });
         res.json(responsavel);
     } catch (err) {
@@ -59,12 +68,33 @@ responsavelRouter.get("/:id", async (req, res) => {
 });
 
 responsavelRouter.put("/:id", async (req, res) => {
+    // Professor Vanessa, the following method is just.. inneficient and production UNready
+    // but did it like that for pure convenience sake
     try {
         const id = req.params.id;
         const responsavel = req.body;
-        const updatedResponsavel = await responsavelClient.update({
+        const oldResponsavel = await responsavelClient.findUnique({
             where: { id: Number(id) },
-            data: responsavel,
+            include: {
+                pessoa: true,
+                endereco: true,
+                telefone: true,
+            }
+        });
+        if(!oldResponsavel)
+            return res.sendStatus(404);
+        Promise.all([
+            ( responsavel.pessoa ? prismaClient.pessoa.update({data: responsavel.pessoa, where: {id: oldResponsavel.idpessoa}}) : Promise.resolve() ),
+            ( responsavel.endereco ? prismaClient.endereco.update({data: responsavel.endereco, where: {id: oldResponsavel.idenderecoprincipal}}) : Promise.resolve() ),
+            ( responsavel.telefone ? prismaClient.telefone.update({data: responsavel.telefone, where: {id: oldResponsavel.idtelefoneprincipal}}) : Promise.resolve() ),
+        ]);
+        const updatedResponsavel = await responsavelClient.findUnique({
+            where: { id: Number(id) },
+            include: {
+                pessoa: true,
+                endereco: true,
+                telefone: true,
+            }
         });
         res.json(updatedResponsavel);
     } catch (err) {
@@ -77,6 +107,11 @@ responsavelRouter.delete("/:id", async (req, res) => {
         const id = req.params.id;
         const deletedResponsavel = await responsavelClient.delete({
             where: { id: Number(id) },
+            include: {
+                pessoa: true,
+                endereco: true,
+                telefone: true,
+            }
         });
         res.json(deletedResponsavel);
     } catch (err) {

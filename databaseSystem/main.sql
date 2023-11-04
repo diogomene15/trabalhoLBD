@@ -150,20 +150,24 @@ CREATE TABLE IF NOT EXISTS AlunoRefeicao(
 CREATE OR REPLACE FUNCTION AddLogFichaAlimentar() RETURNS TRIGGER AS $$
     DECLARE
         tipoLog VARCHAR(2);
+        idFichaAlimentar INTEGER;
     BEGIN
         IF (TG_OP = 'INSERT') THEN
+            idFichaAlimentar := NEW.id;
             IF (TG_TABLE_NAME = 'FichaRestricaoIngrediente') THEN
                 tipoLog := 'II'; -- inserção de ingrediente
             ELSE
                 tipoLog := 'I'; -- inserção de ficha alimentar
             END IF;
         ELSIF(TG_OP = 'UPDATE') THEN
+            idFichaAlimentar := OLD.id;
             IF (TG_TABLE_NAME = 'FichaRestricaoIngrediente') THEN
                 tipoLog := 'UI'; -- update de ingrediente
             ELSE
                 tipoLog := 'U'; -- update de ficha alimentar
             END IF;
         ELSIF(TG_OP = 'DELETE') THEN
+            idFichaAlimentar := OLD.id;
             IF (TG_TABLE_NAME = 'FichaRestricaoIngrediente') THEN
                 tipoLog := 'DI'; -- delete de ingrediente
             ELSE
@@ -172,7 +176,7 @@ CREATE OR REPLACE FUNCTION AddLogFichaAlimentar() RETURNS TRIGGER AS $$
         END IF;
         
         INSERT INTO FichaAlimentarLog(idFichaAlimentar, dataHora, tipoLog)
-        VALUES(OLD.id, NOW(), tipoLog);
+        VALUES(idFichaAlimentar, NOW(), tipoLog);
         RETURN NULL;
     END;
 $$ LANGUAGE plpgsql;

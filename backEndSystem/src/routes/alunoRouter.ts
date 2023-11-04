@@ -7,12 +7,34 @@ const alunoClient = prismaClient.aluno;
 
 alunoRouter.get("/", async (_, res) => {
     try {
-        const allAlunos = alunoClient.findMany();
+        const allAlunos = alunoClient.findMany({
+            include: {
+                pessoa: true,
+                fichaalimentar: true,
+            }
+        });
         res.json(allAlunos);
     } catch (err) {
         res.status(500).send(err);
     }
 });
+
+alunoRouter.get("/:id", async (req, res) => {
+    try {
+        const id = req.params.id;
+        const aluno = await alunoClient.findUnique({
+            where: { id: Number(id) },
+            include: {
+                pessoa: true,
+                fichaalimentar: true,
+            }
+        });
+        res.json(aluno);
+    } catch (err) {
+        res.status(500).send(err);
+    }
+});
+
 
 alunoRouter.post("/", async (req, res) => {
     try {
@@ -42,24 +64,28 @@ alunoRouter.post("/", async (req, res) => {
     }
 });
 
-alunoRouter.get("/:id", async (req, res) => {
+alunoRouter.put("/:id", async (req, res) => {
+    // Professor Vanessa, the following method is just.. inneficient and production UNready
+    // but did it like that for pure convenience sake
     try {
         const id = req.params.id;
-        const aluno = await alunoClient.findUnique({
+        const oldAluno = await alunoClient.findUnique({
             where: { id: Number(id) },
         });
-        res.json(aluno);
-    } catch (err) {
-        res.status(500).send(err);
-    }
-});
-
-alunoRouter.put("/:id", async (req, res) => {
-    try {
-        const id = req.params.id;
-        const updatedAluno = await alunoClient.update({
+        if(!oldAluno)
+            return res.sendStatus(404);
+        await Promise.all([
+            (req.body.pessoa ? prismaClient.pessoa.update({
+                where: { id: oldAluno.idpessoa },
+                data: req.body.pessoa,
+            }) : Promise.resolve()),
+            (req.body.fichaAlimentar ? prismaClient.fichaalimentar.update({
+                where: { id: oldAluno.idfichaalimentar },
+                data: req.body.fichaalimentar,
+            }) : Promise.resolve())
+        ]);
+        const updatedAluno = await alunoClient.findUnique({
             where: { id: Number(id) },
-            data: req.body,
         });
         res.json(updatedAluno);
     } catch (err) {
@@ -72,6 +98,10 @@ alunoRouter.delete("/:id", async (req, res) => {
         const id = req.params.id;
         const deletedAluno = await alunoClient.delete({
             where: { id: Number(id) },
+            include: {
+                pessoa: true,
+                fichaalimentar: true,
+            }
         });
         res.json(deletedAluno);
     } catch (err) {
