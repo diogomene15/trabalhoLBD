@@ -11,6 +11,13 @@ alunoRouter.get("/", async (_, res) => {
             include: {
                 pessoa: true,
                 fichaalimentar: true,
+                responsavel: {
+                    include: {
+                        pessoa: true,
+                        endereco: true,
+                        telefone: true,
+                    }
+                },
             }
         });
         res.json(allAlunos);
@@ -27,6 +34,22 @@ alunoRouter.get("/:id", async (req, res) => {
             include: {
                 pessoa: true,
                 fichaalimentar: true,
+                responsavel: true,
+            }
+        });
+        res.json(aluno);
+    } catch (err) {
+        res.status(500).send(err);
+    }
+});
+
+alunoRouter.get("/:id/enturmacao", async (req, res) => {
+    try {
+        const id = req.params.id;
+        const aluno = await alunoClient.findUnique({
+            where: { id: Number(id) },
+            include: {
+                enturmacao: true,
             }
         });
         res.json(aluno);

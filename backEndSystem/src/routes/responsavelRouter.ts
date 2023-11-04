@@ -67,6 +67,57 @@ responsavelRouter.get("/:id", async (req, res) => {
     }
 });
 
+responsavelRouter.get("/:id/endereco", async (req, res) => {
+    try {
+        const id = req.params.id;
+        const responsavel = await responsavelClient.findUnique({
+            where: { id: Number(id) },
+            include: {
+                reponsavelendereco: true,
+            }
+        });
+        res.json(responsavel);
+    } catch (err) {
+        res.status(500).send(err);
+    }
+});
+
+responsavelRouter.get("/:id/telefone", async (req, res) => {
+    try {
+        const id = req.params.id;
+        const responsavel = await responsavelClient.findUnique({
+            where: { id: Number(id) },
+            include: {
+                reponsaveltelefone: true,
+            }
+        });
+        res.json(responsavel);
+    } catch (err) {
+        res.status(500).send(err);
+    }
+});
+
+responsavelRouter.get("/:id/aluno", async (req, res) => {
+    try {
+        const id = req.params.id;
+        const responsavel = await responsavelClient.findUnique({
+            where: { id: Number(id) },
+            include: {
+                aluno: {
+                    include: {
+                        pessoa: true,
+                        fichaalimentar: true,
+                    }
+                },
+            }
+        });
+        res.json(responsavel);
+    } catch (err) {
+        res.status(500).send(err);
+    }
+});
+
+
 responsavelRouter.put("/:id", async (req, res) => {
     // Professor Vanessa, the following method is just.. inneficient and production UNready
     // but did it like that for pure convenience sake

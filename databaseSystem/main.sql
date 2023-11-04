@@ -118,7 +118,7 @@ CREATE TABLE IF NOT EXISTS Aluno(
     id SERIAL,
     idPessoa INTEGER NOT NULL UNIQUE,
     matricula VARCHAR(50) NOT NULL UNIQUE,
-    idResponsavel INTEGER NOT NULL UNIQUE,
+    idResponsavel INTEGER NOT NULL,
     parentescoResponsavel VARCHAR(50) NOT NULL,
     idFichaAlimentar INTEGER NOT NULL UNIQUE,
     PRIMARY KEY(id),

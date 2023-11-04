@@ -1,5 +1,6 @@
 import { PrismaClient } from "@prisma/client";
 import { Router } from "express";
+import { addRestricaoById, getRestricoesById, removeRestricaoById } from "./ficharestricaoingrediente";
 
 const fichaalimentarRouter = Router();
 const prismaClient = new PrismaClient();
@@ -37,6 +38,8 @@ fichaalimentarRouter.post("/", async (req, res) => {
     }
 });
 
+fichaalimentarRouter.post("/:id/restricao", addRestricaoById);
+
 fichaalimentarRouter.get("/:id", async (req, res) => {
     try {
         const id = req.params.id;
@@ -61,6 +64,8 @@ fichaalimentarRouter.get("/:id/log", async (req, res) => {
     }
 });
 
+fichaalimentarRouter.get("/:id/restricao", getRestricoesById);
+
 fichaalimentarRouter.put("/:id", async (req, res) => {
     try {
         const id = req.params.id;
@@ -74,6 +79,7 @@ fichaalimentarRouter.put("/:id", async (req, res) => {
     }
 });
 
+
 fichaalimentarRouter.delete("/:id", async (req, res) => {
     try {
         const id = req.params.id;
@@ -85,5 +91,7 @@ fichaalimentarRouter.delete("/:id", async (req, res) => {
         res.status(500).send(err);
     }
 });
+
+fichaalimentarRouter.delete("/:id/restricao", removeRestricaoById);
 
 export default fichaalimentarRouter;

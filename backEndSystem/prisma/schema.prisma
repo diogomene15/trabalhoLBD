@@ -11,7 +11,7 @@ model aluno {
   id                    Int             @id @default(autoincrement())
   idpessoa              Int             @unique
   matricula             String          @unique @db.VarChar(50)
-  idresponsavel         Int             @unique
+  idresponsavel         Int
   parentescoresponsavel String          @db.VarChar(50)
   idfichaalimentar      Int             @unique
   fichaalimentar        fichaalimentar  @relation(fields: [idfichaalimentar], references: [id], onDelete: NoAction, onUpdate: NoAction)
@@ -132,7 +132,7 @@ model responsavel {
   idpessoa            Int                  @unique
   idtelefoneprincipal Int                  @unique
   idenderecoprincipal Int                  @unique
-  aluno               aluno?
+  aluno               aluno[]
   reponsavelendereco  reponsavelendereco[]
   reponsaveltelefone  reponsaveltelefone[]
   endereco            endereco             @relation(fields: [idenderecoprincipal], references: [id], onDelete: NoAction, onUpdate: NoAction)
