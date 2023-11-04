@@ -10,7 +10,11 @@ alunoRouter.get("/", async (_, res) => {
         const allAlunos = await alunoClient.findMany({
             include: {
                 pessoa: true,
-                fichaalimentar: true,
+                fichaalimentar: {
+                    include:{
+                        ficharestricaoingrediente: true
+                    }
+                },
                 responsavel: {
                     include: {
                         pessoa: true,
@@ -33,7 +37,11 @@ alunoRouter.get("/:id", async (req, res) => {
             where: { id: Number(id) },
             include: {
                 pessoa: true,
-                fichaalimentar: true,
+                fichaalimentar: {
+                    include:{
+                        ficharestricaoingrediente: true
+                    }
+                },
                 responsavel: true,
             }
         });
@@ -50,6 +58,33 @@ alunoRouter.get("/:id/enturmacao", async (req, res) => {
             where: { id: Number(id) },
             include: {
                 enturmacao: true,
+            }
+        });
+        res.json(aluno);
+    } catch (err) {
+        res.status(500).send(err);
+    }
+});
+
+alunoRouter.get("/:id/refeicao", async (req, res) => {
+    try {
+        const id = req.params.id;
+        const aluno = await alunoClient.findMany({
+            where: { id: Number(id) },
+            include: {
+                alunorefeicao: {
+                    include: {
+                        refeicao: {
+                            include:{
+                                refeicaoingrediente: {
+                                    include: {
+                                        ingrediente: true,
+                                    },
+                                },
+                            }
+                        }
+                    }
+                }
             }
         });
         res.json(aluno);
@@ -82,6 +117,39 @@ alunoRouter.post("/", async (req, res) => {
             },
         });
         res.json(newAluno);
+    } catch (err) {
+        res.status(500).send(err);
+    }
+});
+
+alunoRouter.post("/:id/enturmacao", async (req, res) => {
+    try {
+        const id = req.params.id;
+        const enturmacao = await prismaClient.enturmacao.create({
+            data:{
+                idaluno: Number(id),
+                idturma: req.body.idturma,
+                atual: req.body.atual,
+                ano: req.body.ano,
+            }
+        });
+        res.json(enturmacao);
+    } catch (err) {
+        res.status(500).send(err);
+    }
+});
+
+alunoRouter.post("/:id/refeicao", async (req, res) => {
+    try {
+        const id = req.params.id;
+        const refeicao = await prismaClient.alunorefeicao.create({
+            data:{
+                idaluno: Number(id),
+                idrefeicao: req.body.idrefeicao,
+                datahora: req.body.datahora || new Date(),
+            }
+        });
+        res.json(refeicao);
     } catch (err) {
         res.status(500).send(err);
     }
@@ -123,7 +191,11 @@ alunoRouter.delete("/:id", async (req, res) => {
             where: { id: Number(id) },
             include: {
                 pessoa: true,
-                fichaalimentar: true,
+                fichaalimentar: {
+                    include:{
+                        ficharestricaoingrediente: true
+                    }
+                },
             }
         });
         res.json(deletedAluno);

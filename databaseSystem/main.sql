@@ -55,10 +55,9 @@ CREATE TABLE IF NOT EXISTS Refeicao(
 );
 
 CREATE TABLE IF NOT EXISTS RefeicaoIngrediente(
-    id SERIAL,
     idRefeicao INTEGER NOT NULL,
     idIngrediente INTEGER NOT NULL,
-    PRIMARY KEY(id),
+    PRIMARY KEY(idRefeicao, idIngrediente),
     FOREIGN KEY(idRefeicao) REFERENCES Refeicao(id),
     FOREIGN KEY(idIngrediente) REFERENCES Ingrediente(id)
 );
@@ -70,10 +69,9 @@ CREATE TABLE IF NOT EXISTS FichaAlimentar(
 );
 
 CREATE TABLE IF NOT EXISTS FichaRestricaoIngrediente(
-    id SERIAL,
     idFichaAlimentar INTEGER NOT NULL,
     idIngrediente INTEGER NOT NULL,
-    PRIMARY KEY(id),
+    PRIMARY KEY(idFichaAlimentar, idIngrediente),
     FOREIGN KEY(idFichaAlimentar) REFERENCES FichaAlimentar(id),
     FOREIGN KEY(idIngrediente) REFERENCES Ingrediente(id)
 );
