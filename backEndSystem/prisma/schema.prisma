@@ -11,7 +11,7 @@ model aluno {
   id                    Int             @id @default(autoincrement())
   idpessoa              Int             @unique
   matricula             String          @unique @db.VarChar(50)
-  idresponsavel         Int             @unique
+  idresponsavel         Int
   parentescoresponsavel String          @db.VarChar(50)
   idfichaalimentar      Int             @unique
   fichaalimentar        fichaalimentar  @relation(fields: [idfichaalimentar], references: [id], onDelete: NoAction, onUpdate: NoAction)
@@ -69,11 +69,12 @@ model fichaalimentarlog {
 }
 
 model ficharestricaoingrediente {
-  id               Int            @id @default(autoincrement())
   idfichaalimentar Int
   idingrediente    Int
   fichaalimentar   fichaalimentar @relation(fields: [idfichaalimentar], references: [id], onDelete: NoAction, onUpdate: NoAction)
   ingrediente      ingrediente    @relation(fields: [idingrediente], references: [id], onDelete: NoAction, onUpdate: NoAction)
+
+  @@id([idfichaalimentar, idingrediente])
 }
 
 model ingrediente {
@@ -102,11 +103,12 @@ model refeicao {
 }
 
 model refeicaoingrediente {
-  id            Int         @id @default(autoincrement())
   idrefeicao    Int
   idingrediente Int
   ingrediente   ingrediente @relation(fields: [idingrediente], references: [id], onDelete: NoAction, onUpdate: NoAction)
   refeicao      refeicao    @relation(fields: [idrefeicao], references: [id], onDelete: NoAction, onUpdate: NoAction)
+
+  @@id([idrefeicao, idingrediente])
 }
 
 model reponsavelendereco {
@@ -132,7 +134,7 @@ model responsavel {
   idpessoa            Int                  @unique
   idtelefoneprincipal Int                  @unique
   idenderecoprincipal Int                  @unique
-  aluno               aluno?
+  aluno               aluno[]
   reponsavelendereco  reponsavelendereco[]
   reponsaveltelefone  reponsaveltelefone[]
   endereco            endereco             @relation(fields: [idenderecoprincipal], references: [id], onDelete: NoAction, onUpdate: NoAction)

@@ -55,10 +55,9 @@ CREATE TABLE IF NOT EXISTS Refeicao(
 );
 
 CREATE TABLE IF NOT EXISTS RefeicaoIngrediente(
-    id SERIAL,
     idRefeicao INTEGER NOT NULL,
     idIngrediente INTEGER NOT NULL,
-    PRIMARY KEY(id),
+    PRIMARY KEY(idRefeicao, idIngrediente),
     FOREIGN KEY(idRefeicao) REFERENCES Refeicao(id),
     FOREIGN KEY(idIngrediente) REFERENCES Ingrediente(id)
 );
@@ -70,10 +69,9 @@ CREATE TABLE IF NOT EXISTS FichaAlimentar(
 );
 
 CREATE TABLE IF NOT EXISTS FichaRestricaoIngrediente(
-    id SERIAL,
     idFichaAlimentar INTEGER NOT NULL,
     idIngrediente INTEGER NOT NULL,
-    PRIMARY KEY(id),
+    PRIMARY KEY(idFichaAlimentar, idIngrediente),
     FOREIGN KEY(idFichaAlimentar) REFERENCES FichaAlimentar(id),
     FOREIGN KEY(idIngrediente) REFERENCES Ingrediente(id)
 );
@@ -118,7 +116,7 @@ CREATE TABLE IF NOT EXISTS Aluno(
     id SERIAL,
     idPessoa INTEGER NOT NULL UNIQUE,
     matricula VARCHAR(50) NOT NULL UNIQUE,
-    idResponsavel INTEGER NOT NULL UNIQUE,
+    idResponsavel INTEGER NOT NULL,
     parentescoResponsavel VARCHAR(50) NOT NULL,
     idFichaAlimentar INTEGER NOT NULL UNIQUE,
     PRIMARY KEY(id),
@@ -150,20 +148,24 @@ CREATE TABLE IF NOT EXISTS AlunoRefeicao(
 CREATE OR REPLACE FUNCTION AddLogFichaAlimentar() RETURNS TRIGGER AS $$
     DECLARE
         tipoLog VARCHAR(2);
+        idFichaAlimentar INTEGER;
     BEGIN
         IF (TG_OP = 'INSERT') THEN
+            idFichaAlimentar := NEW.id;
             IF (TG_TABLE_NAME = 'FichaRestricaoIngrediente') THEN
                 tipoLog := 'II'; -- inserção de ingrediente
             ELSE
                 tipoLog := 'I'; -- inserção de ficha alimentar
             END IF;
         ELSIF(TG_OP = 'UPDATE') THEN
+            idFichaAlimentar := OLD.id;
             IF (TG_TABLE_NAME = 'FichaRestricaoIngrediente') THEN
                 tipoLog := 'UI'; -- update de ingrediente
             ELSE
                 tipoLog := 'U'; -- update de ficha alimentar
             END IF;
         ELSIF(TG_OP = 'DELETE') THEN
+            idFichaAlimentar := OLD.id;
             IF (TG_TABLE_NAME = 'FichaRestricaoIngrediente') THEN
                 tipoLog := 'DI'; -- delete de ingrediente
             ELSE
@@ -172,7 +174,7 @@ CREATE OR REPLACE FUNCTION AddLogFichaAlimentar() RETURNS TRIGGER AS $$
         END IF;
         
         INSERT INTO FichaAlimentarLog(idFichaAlimentar, dataHora, tipoLog)
-        VALUES(OLD.id, NOW(), tipoLog);
+        VALUES(idFichaAlimentar, NOW(), tipoLog);
         RETURN NULL;
     END;
 $$ LANGUAGE plpgsql;
