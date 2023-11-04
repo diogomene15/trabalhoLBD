@@ -37,11 +37,13 @@ const addRestricaoById : RequestHandler = async (req, res, next) => {
     next();
 }
 
-const removeRestricaoById : RequestHandler = async  (req, res, next) => {
+const removeRestricao : RequestHandler = async  (req, res, next) => {
     try {
         const id = req.params.id;
-        const fichaRestr = await ficharestricaoingredienteClient.delete({
-            where: { id: Number(id) },
+        const idingrediente = req.params.idingrediente;
+
+        const fichaRestr = await ficharestricaoingredienteClient.deleteMany({
+            where: { idfichaalimentar: Number(id), idingrediente: Number(idingrediente) },
         });
         res.json(fichaRestr);
     } catch (err) {
@@ -50,5 +52,5 @@ const removeRestricaoById : RequestHandler = async  (req, res, next) => {
     next();
 }
 
-export { getRestricoesById, addRestricaoById, removeRestricaoById };
+export { getRestricoesById, addRestricaoById, removeRestricao };
 

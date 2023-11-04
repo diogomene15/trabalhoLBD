@@ -1,6 +1,6 @@
 import { PrismaClient } from "@prisma/client";
 import { Router } from "express";
-import { addRestricaoById, getRestricoesById, removeRestricaoById } from "./ficharestricaoingrediente";
+import { addRestricaoById, getRestricoesById, removeRestricao } from "./ficharestricaoingrediente";
 
 const fichaalimentarRouter = Router();
 const prismaClient = new PrismaClient();
@@ -92,6 +92,6 @@ fichaalimentarRouter.delete("/:id", async (req, res) => {
     }
 });
 
-fichaalimentarRouter.delete("/:id/restricao", removeRestricaoById);
+fichaalimentarRouter.delete("/:id/restricao/:idingrediente", removeRestricao);
 
 export default fichaalimentarRouter;
