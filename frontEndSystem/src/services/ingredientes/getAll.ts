@@ -1,7 +1,6 @@
 import axios, { AxiosResponse } from "axios";
 import Ingrediente from "../../models/Ingrediente";
-
-const BASE_URL = 'http://localhost:3000';
+import { BASE_URL } from "./config";
 
 export default async function getAll() {
     //use axios
