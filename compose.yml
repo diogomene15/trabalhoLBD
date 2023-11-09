@@ -24,3 +24,15 @@ services:
       - 3000
     depends_on:
       - db
+  front:
+    build: ./frontEndSystem
+    restart: always
+    volumes:
+      - ./frontEndSystem:/app
+    working_dir: /app
+    ports:
+      - 8081:80
+    expose:
+      - 8081
+    depends_on:
+      - app
