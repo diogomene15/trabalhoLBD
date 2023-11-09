@@ -1,6 +1,6 @@
 import express from "express";
 import router from "./router";
-
+import cors from "cors";
 export default function startApp() {
     const app = express();
 
@@ -15,6 +15,8 @@ export default function startApp() {
         );
         next();
     });
+    app.use(cors());
+
     app.use(express.json());
     app.use(express.urlencoded({ extended: true }));
 

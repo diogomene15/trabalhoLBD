@@ -1,0 +1,23 @@
+.ingredientes-list-item {
+    display: flex;
+    justify-content: space-between;
+  }
+  .ingredientes-nome {
+    padding-top: 1em;
+  }
+  .ingredientes-container button {
+    padding: .5rem;               /* Espaçamento interno */
+    height: 2rem;
+    background-color: rgb(0, 128, 0); /* Cor de fundo azul */
+    color: #fff;                 /* Cor do texto branco */
+    border: none;                /* Sem borda */
+    border-radius: 8px;          /* Cantos arredondados */
+    cursor: pointer;             /* Estilo do cursor ao passar o mouse */
+    transition: background-color 0.2s; /* Transição de cor de fundo ao passar o mouse */
+    margin: 0px 5px;
+  }
+  
+  /* Estilização do botão do formulário quando o mouse passa por cima */
+  .ingredientes-container button:hover {
+    background-color: rgb(52, 219, 96); /* Cor de fundo mais escura ao passar o mouse */
+  }

@@ -1,0 +1,214 @@
+/* Estilização para o corpo do documento */
+*{
+  margin: 0;
+  padding: 0;
+}
+body {
+  background-color: rgb(0, 128, 0); /* Cor de fundo */
+  font-family: roboto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-top: 2.5rem;
+}
+.app{
+  padding: 4rem 0;
+}
+
+/* Estilização para o contêiner do formulário de inscrição */
+.page-paper-container{
+  width: 24rem !important;
+}
+.signup-container {          /* Largura máxima */        /* Margem superior e inferior de 50px, e centralizado horizontalmente */
+  background-color: #fff;      /* Cor de fundo branco */
+  padding: .5rem 3rem;                /* Espaçamento interno */
+  border-radius: 8px;          /* Cantos arredondados */
+  box-shadow: 0px 0px 10px rgb(52, 219, 96); /* Sombra ao redor do contêiner */
+  height: 23rem;
+  margin-bottom: 2rem;
+}
+.signup-title{
+  font-size: 1.5rem;
+  margin-bottom: .25rem;
+}
+.signup-subtitle{
+  font-size: .75rem;
+  margin-bottom: 1rem;
+}
+.signup-input{
+  font-size: .75rem;
+  height: .8rem;
+  width: 20.5rem;
+  margin-top: .5rem;
+}
+
+/* Estilização para o título do contêiner do formulário de inscrição */
+.signup-container h1 {
+  text-align: center;          /* Alinhamento de texto no centro */
+  margin-bottom: 15px;         /* Margem inferior */
+}
+
+/* Estilização do formulário dentro do contêiner de inscrição */
+.signup-container form {
+  display: flex;               /* Tipo de exibição flexível */
+  flex-direction: column;      /* Direção do flex (vertical) */
+}
+/* Estilização para os campos de entrada do formulário */
+.signup-container input, .signup-container textarea{
+  width: 95%;
+  margin-bottom: 10px;         /* Margem inferior */
+  padding: 10px;               /* Espaçamento interno */
+  border: 1px solid rgb(0, 128, 0);      /* Borda com cor cinza claro */
+  border-radius: 1px;          /* Cantos arredondados */
+}
+.signup-container textarea{
+  resize: vertical;
+  max-height: 3rem;
+}
+/* Estilização para o botão do formulário */
+.signup-container button {
+  padding: 10px;               /* Espaçamento interno */
+  background-color: rgb(0, 128, 0); /* Cor de fundo azul */
+  color: #fff;                 /* Cor do texto branco */
+  border: none;                /* Sem borda */
+  border-radius: 8px;          /* Cantos arredondados */
+  cursor: pointer;             /* Estilo do cursor ao passar o mouse */
+  transition: background-color 0.2s; /* Transição de cor de fundo ao passar o mouse */
+  margin-top: 1rem;
+}
+
+/* Estilização do botão do formulário quando o mouse passa por cima */
+.signup-container button:hover {
+  background-color: rgb(52, 219, 96); /* Cor de fundo mais escura ao passar o mouse */
+}
+
+/* Estilização para o contêiner do logotipo */
+.logo {         /* Margem superior */
+  text-align: center;          /* Alinhamento de texto no centro */
+  padding: .3rem 0 .5rem;
+}
+
+/* Estilização para a imagem do logotipo */
+.logo img {
+  max-width: 100%;             /* Largura máxima */
+  width: 70px;                 /* Largura definida */
+}
+
+
+/* Estilização para o título "CRIE SUA CONTA" */
+.signup-container h1 {
+  text-align: center;
+  color: rgb(0, 128, 0);
+  margin-bottom: 10px;    /* Reduzi a margem para deixar mais próximo do parágrafo abaixo */
+  font-family: 'Roboto', sans-serif;  /* Adicionado a fonte Roboto */
+  
+}
+
+/* Estilização para o parágrafo "Informe os dados abaixo..." */
+.signup-container p {
+  text-align: center;
+  color: gray;
+  margin-bottom: 20px;
+  font-family: 'Lato', sans-serif;    /* Adicionado a fonte Lato */
+  margin-top: 2px;    /* Adicionado margem superior para ajustar o espaçamento */
+}
+
+
+
+/* 2 quadrado
+
+/* Estilização para o contêiner do formulário de inscrição */
+.ingredientes-container {          /* Largura máxima */        /* Margem superior e inferior de 50px, e centralizado horizontalmente */
+  background-color: #fff;      /* Cor de fundo branco */
+  padding: 3rem 3rem .8rem;                /* Espaçamento interno */
+  border-radius: 8px;          /* Cantos arredondados */
+  box-shadow: 0px 0px 10px rgb(52, 219, 96); /* Sombra ao redor do contêiner */
+  height: 35rem;
+}
+.ingredientes-title{
+  font-size: 1.5rem;
+  margin-bottom: .25rem !important;
+}
+
+.ingredientes-list{
+  list-style: none;
+  width: 100%;
+  padding: .5rem 0rem 0rem .1rem;
+  margin-top: .5rem;
+}
+
+/* Estilização para o título do contêiner do formulário de inscrição */
+.ingredientes-container h1 {
+  text-align: center;        /* Alinhamento de texto no centro */
+  margin-bottom: 15px;         /* Margem inferior */
+  
+}
+
+
+/* Estilização para os campos de entrada do formulário */
+.ingredientes-container input, .ingredientes-container textarea{
+  margin-bottom: 10px;         /* Margem inferior */
+  padding: 10px;               /* Espaçamento interno */
+  border: 1px solid rgb(0, 128, 0);      /* Borda com cor cinza claro */
+  border-radius: 1px;          /* Cantos arredondados */
+}
+.ingredientes-container textarea{
+  resize: vertical;
+}
+/* Estilização para o botão do formulário */
+
+
+/* Estilização para o contêiner do logotipo */
+.logo {         /* Margem superior */
+  text-align: center;          /* Alinhamento de texto no centro */
+  padding: .3rem 0 .5rem;
+}
+
+/* Estilização para a imagem do logotipo */
+.logo img {
+  max-width: 100%;             /* Largura máxima */
+  width: 70px;                 /* Largura definida */
+}
+
+
+/* Estilização para o título "CRIE SUA CONTA" */
+.ingredientes-container h1 {
+  text-align: center;
+  color: rgb(0, 128, 0);
+  margin-bottom: 10px;    /* Reduzi a margem para deixar mais próximo do parágrafo abaixo */
+  font-family: 'Roboto', sans-serif;  /* Adicionado a fonte Roboto */
+  
+}
+
+.container-ingredientes-buttons {
+  display: flex;
+  align-items: center;
+}
+
+/* Estilização para o parágrafo "Informe os dados abaixo..." */
+.ingredientes-container p {
+  text-align: center;
+  color: gray;
+  margin-bottom: 20px;
+  font-family: 'Lato', sans-serif;    /* Adicionado a fonte Lato */
+  margin-top: 2px;    /* Adicionado margem superior para ajustar o espaçamento */
+}
+
+.container-button-envio {
+  display: flex;
+  justify-content: center;
+  align-items: center;             /* Espaçamento interno */
+  background-color: rgb(0, 128, 0); /* Cor de fundo azul */
+  color: #fff;                 /* Cor do texto branco */
+  border: none;                /* Sem borda */
+  border-radius: 8px;          /* Cantos arredondados */
+  cursor: pointer;             /* Estilo do cursor ao passar o mouse */
+  transition: background-color 0.2s; /* Transição de cor de fundo ao passar o mouse */
+}
+
+.ingredientes-button-adicionar {
+  display: flex;
+  justify-content: center;
+  
+}
