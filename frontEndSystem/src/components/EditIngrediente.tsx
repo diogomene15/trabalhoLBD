@@ -15,12 +15,14 @@ export default function EditIngrediente({
 }: EditIngredienteProps) {
     return (
         <>
-            {isOpen && (
-                <SignupIngrediente
-                    onSubmit={onEditIngredient}
-                    editIngrediente={ingrediente}
-                ></SignupIngrediente>
-            )}
+            {isOpen && 
+                    <div className="edit-ingrediente-modal">
+                        <SignupIngrediente
+                            onSubmit={onEditIngredient}
+                            editIngrediente={ingrediente}
+                        ></SignupIngrediente>
+                    </div>
+            }
         </>
     );
 }

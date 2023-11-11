@@ -12,7 +12,7 @@ export default function IngredienteItem(props: IngredienteItemProps) {
     const { onEditar = ()=>{}, onExcluir = ()=>{}} = props;
     return (
         <li className="ingredientes-list-item">
-            <p className="ingredientes-nome">{props.nome}</p>
+            <p className="ingredientes-nome" title={props.descricao}>{props.nome}</p>
             <div className="container-ingredientes-buttons">
                 <button className="ingredientes-container button" onClick={onExcluir}>
                     EXCLUIR

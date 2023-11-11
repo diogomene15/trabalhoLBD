@@ -27,11 +27,13 @@ export default function CrudIngredientes() {
             nome: nomeIngrediente,
             descricao: descricaoIngrediente,
         });
-        if (response.status < 400)
+        if (response.status < 400){
             setIngredientes([
                 ...ingredientes,
                 { id:Number(response.data?.id),nome: String(response.data?.nome), descricao: String(response.data?.descricao) },
             ]);
+            form.reset();
+        }
     });
 
     return (

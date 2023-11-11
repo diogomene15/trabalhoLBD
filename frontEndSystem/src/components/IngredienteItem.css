@@ -4,6 +4,7 @@
   }
   .ingredientes-nome {
     padding-top: 1em;
+    cursor: alias;
   }
   .ingredientes-container button {
     padding: .5rem;               /* Espaçamento interno */

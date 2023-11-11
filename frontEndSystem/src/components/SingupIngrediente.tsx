@@ -31,7 +31,7 @@ export default function SignupIngrediente({editIngrediente, onSubmit}: SignupIng
                     defaultValue={editIngrediente?.descricao||""}
                     required
                 />
-                <button type="submit">ADICIONAR</button>
+                <button type="submit">{editIngrediente ? "EDITAR" : "ADICIONAR"}</button>
             </form>
         </div>
     );
