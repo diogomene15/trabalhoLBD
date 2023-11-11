@@ -1,0 +1,183 @@
+:root {
+    --green-accent: rgb(52, 219, 96);
+}
+.page-paper-container {
+    width: 30rem;
+}
+.signup-container {
+    display: flex;
+    flex-direction: column;
+    place-items: center; 
+    background-color: #fff; 
+    padding: 1.5rem 3rem 0.5rem; 
+    border-radius: 8px; 
+    box-shadow: 0px 0px 10px var(--green-accent); 
+    height: 23rem;
+    margin-bottom: 2rem;
+    overflow: hidden;
+}
+.signup-title {
+    font-size: 1.5rem;
+}
+.signup-subtitle {
+    font-size: 0.75rem;
+    margin-bottom: 1rem;
+}
+.signup-container h1 {
+    text-align: center; 
+    margin-bottom: 15px; 
+}
+#create-ingrediente-form {
+    display: flex; 
+    flex-direction: column; 
+    width: 100%; 
+}
+.signup-container input,
+.signup-container textarea {
+    width: 100%;
+    margin-bottom: 10px; 
+    padding: 10px; 
+    border: 1px solid rgb(0, 128, 0); 
+    border-radius: 1px; 
+    font-size: 0.8rem;
+}
+.signup-container textarea {
+    resize: vertical;
+    max-height: 5rem;
+    min-height: 3rem;
+}
+
+.signup-container button {
+    padding: 10px; 
+    background-color: rgb(0, 128, 0); 
+    color: #fff; 
+    border: none; 
+    border-radius: 8px; 
+    cursor: pointer; 
+    transition: background-color 0.2s; 
+    margin-top: 1rem;
+}
+
+
+.signup-container button:hover {
+    background-color: var(--green-accent)
+}
+
+
+.logo {
+    
+    text-align: center; 
+    padding: 0.3rem 0 0.5rem;
+}
+
+
+.logo img {
+    max-width: 100%; 
+    width: 70px; 
+}
+
+
+.signup-container h1 {
+    text-align: center;
+    color: rgb(0, 128, 0);
+    margin-bottom: 10px; 
+    font-family: "Roboto", sans-serif; 
+}
+
+
+.signup-container p {
+    text-align: center;
+    color: gray;
+    margin-bottom: 20px;
+    font-family: "Lato", sans-serif; 
+    margin-top: 2px; 
+}
+.ingredientes-container {
+    background-color: #fff; 
+    padding: 3rem 3rem 0.8rem; 
+    border-radius: 8px; 
+    box-shadow: 0px 0px 10px var(--green-accent);
+    height: 35rem;
+}
+.ingredientes-title {
+    font-size: 1.5rem;
+    margin-bottom: 0.25rem !important;
+}
+
+.ingredientes-list {
+    list-style: none;
+    width: 100%;
+    padding: 0.5rem 0rem 0rem 0.1rem;
+    margin-top: 0.5rem;
+}
+
+
+.ingredientes-container h1 {
+    text-align: center; 
+    margin-bottom: 15px; 
+}
+
+
+.ingredientes-container input,
+.ingredientes-container textarea {
+    margin-bottom: 10px; 
+    padding: 10px; 
+    border: 1px solid rgb(0, 128, 0); 
+    border-radius: 1px; 
+}
+.ingredientes-container textarea {
+    resize: vertical;
+}
+
+
+
+.logo {
+    
+    text-align: center; 
+    padding: 0.3rem 0 0.5rem;
+}
+
+
+.logo img {
+    max-width: 100%; 
+    width: 70px; 
+}
+
+
+.ingredientes-container h1 {
+    text-align: center;
+    color: rgb(0, 128, 0);
+    margin-bottom: 10px; 
+    font-family: "Roboto", sans-serif; 
+}
+
+.container-ingredientes-buttons {
+    display: flex;
+    align-items: center;
+}
+
+
+.ingredientes-container p {
+    text-align: center;
+    color: gray;
+    margin-bottom: 20px;
+    font-family: "Lato", sans-serif; 
+    margin-top: 2px; 
+}
+
+.container-button-envio {
+    display: flex;
+    justify-content: center;
+    align-items: center; 
+    background-color: rgb(0, 128, 0); 
+    color: #fff; 
+    border: none; 
+    border-radius: 8px; 
+    cursor: pointer; 
+    transition: background-color 0.2s; 
+}
+
+.ingredientes-button-adicionar {
+    display: flex;
+    justify-content: center;
+}

@@ -15,7 +15,7 @@ export default function IngredienteItem(props: IngredienteItemProps) {
             <p className="ingredientes-nome">{props.nome}</p>
             <div className="container-ingredientes-buttons">
                 <button className="ingredientes-container button" onClick={onExcluir}>
-                    Excluir
+                    EXCLUIR
                 </button>
                 <button className="ingredientes-container button" onClick={onEditar}>
                     EDITAR
