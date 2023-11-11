@@ -2,10 +2,10 @@ import axios, { AxiosResponse } from "axios";
 import Ingrediente from "../../models/Ingrediente";
 import { BASE_URL } from "./config";
 
-export default async function create(newIngredient: Ingrediente) : Promise<AxiosResponse<Ingrediente|undefined> >{
+export default async function edit(newIngredient: Ingrediente) : Promise<AxiosResponse<Ingrediente|undefined> >{
     let response: AxiosResponse<Ingrediente|undefined> = <AxiosResponse<Ingrediente|undefined>>{data: undefined};
     try{
-        response = await axios.post(`${BASE_URL}/ingrediente`, newIngredient);
+        response = await axios.put(`${BASE_URL}/ingrediente/${newIngredient.id}`, newIngredient);
     }catch(error){
         console.error(error);
     }
