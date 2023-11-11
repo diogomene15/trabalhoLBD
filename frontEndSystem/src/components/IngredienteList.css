@@ -1,0 +1,78 @@
+.ingredientes-container {
+    display: flex;
+    flex-direction: column;
+    background-color: #fff; 
+    padding: 3rem 3rem 0.8rem; 
+    border-radius: 8px; 
+    box-shadow: 0px 0px 10px var(--green-accent);
+    height: 35rem;
+}
+.ingredientes-title {
+    font-size: 1.5rem;
+    margin-bottom: 0.25rem !important;
+}
+
+.ingredientes-list {
+    flex: 1;
+    list-style: none;
+    width: 100%;
+    padding: 0.5rem 0rem 0rem 0.1rem;
+    margin-top: 0.5rem;
+    overflow-y: scroll;
+}
+
+
+.ingredientes-container h1 {
+    text-align: center; 
+    margin-bottom: 15px; 
+}
+
+
+.ingredientes-container input,
+.ingredientes-container textarea {
+    margin-bottom: 10px; 
+    padding: 10px; 
+    border: 1px solid rgb(0, 128, 0); 
+    border-radius: 1px; 
+}
+.ingredientes-container textarea {
+    resize: vertical;
+}
+
+.ingredientes-container h1 {
+    text-align: center;
+    color: rgb(0, 128, 0);
+    margin-bottom: 10px; 
+    font-family: "Roboto", sans-serif; 
+}
+
+.container-ingredientes-buttons {
+    display: flex;
+    align-items: center;
+}
+
+
+.ingredientes-container p {
+    text-align: center;
+    color: gray;
+    margin-bottom: 20px;
+    font-family: "Lato", sans-serif; 
+    margin-top: 2px; 
+}
+
+.container-button-envio {
+    display: flex;
+    justify-content: center;
+    align-items: center; 
+    background-color: rgb(0, 128, 0); 
+    color: #fff; 
+    border: none; 
+    border-radius: 8px; 
+    cursor: pointer; 
+    transition: background-color 0.2s; 
+}
+
+.ingredientes-button-adicionar {
+    display: flex;
+    justify-content: center;
+}
