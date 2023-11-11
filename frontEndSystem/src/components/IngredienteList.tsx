@@ -44,7 +44,10 @@ export default function IngredienteList({
                 ingredienteAntigo.descricao = descricaoIngrediente;
                 setIngredientes([...ingredientes]);
             }
+            setEditedIngrediente({id:-1, nome:"", descricao:""} as Ingrediente)
+            isOpen && setIsOpen(false);
         }
+
 
     };
    const handleClickEdit = (ingrediente:Ingrediente)=>{
